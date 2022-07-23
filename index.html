@@ -20,8 +20,13 @@
           </div>
           <div class="product-info">
             <h1>{{ product }}</h1>
+            <p v-if="onSale"><b>On Sale</b></p>
+            <p v-if="inventory > 10">In Stock</p>
+            <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
+            <p v-else>Out of Stock</p>
             <p> {{ description }}</p>
             <a :href="url">Made by Vue Mastery</a>
+
           </div>
         </div>
       </div>
