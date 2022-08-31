@@ -40,7 +40,7 @@ app.component('product-display', {
         :style="{ backgroundColor: variant.color }">
       </div>
         <button class="button" :class="{ disabledButton: !inStock }"  :disabled="!inStock"  @click="addToCart">Add to Cart</button>
-        <button class="button" :class="{ disabledButton: !inStock }"  :disabled="!inStock" @click="removeToCart">Remove Item</button><br>
+        <button class="button" :class="{ disabledButton: !inStock }"  :disabled="!inStock" @click="removeFromCart">Remove Item</button><br>
         <a :href="url">Exercice by Vue Mastery</a>
 
       </div>
@@ -66,14 +66,13 @@ app.component('product-display', {
   },
   methods: {
     addToCart() {
-      this.cart += 1
+      this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
     },
     updateVariant(index) {
       this.selectedVariant = index
     },
-    removeToCart() {
-      if(this.cart > 0){
-      this.cart -= 1}
+    removeFromCart() {
+      this.$emit('remove-from-cart', this.variants[this.selectedVariant].id)
     }
   },
   computed: {
