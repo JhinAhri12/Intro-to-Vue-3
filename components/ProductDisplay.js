@@ -41,6 +41,10 @@ app.component('product-display', {
       </div>
         <button class="button" :class="{ disabledButton: !inStock }"  :disabled="!inStock"  @click="addToCart">Add to Cart</button>
         <button class="button" :class="{ disabledButton: !inStock }"  :disabled="!inStock" @click="removeFromCart">Remove Item</button><br>
+        
+        <review-list v-if="reviews.length" :reviews="reviews"></review-list>
+        <review-form @review-submitted="addReview"></review-form>
+        
         <a :href="url">Exercice by Vue Mastery</a>
 
       </div>
@@ -61,7 +65,8 @@ app.component('product-display', {
       variants: [
         { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', quantity: 50  },
         { id: 2235, color: 'blue', image: './assets/images/socks_blue.jpg', quantity: 0},
-      ]
+      ],
+      reviews: []
     }
   },
   methods: {
@@ -73,6 +78,9 @@ app.component('product-display', {
     },
     removeFromCart() {
       this.$emit('remove-from-cart', this.variants[this.selectedVariant].id)
+    },
+    addReview(review) {
+        this.reviews.push(review)
     }
   },
   computed: {
